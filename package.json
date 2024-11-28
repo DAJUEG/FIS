@@ -1,0 +1,7 @@
+{
+    "name": "fis",
+    "author": "Chao Li",
+    "workspaces": [
+        "packages/*"
+    ]
+}
