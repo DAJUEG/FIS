@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useState, StateUpdater } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import CameraComponent from "../components/common/CameraComponent";
 import uploadPhoto from "../utils/uploadPhoto";
@@ -29,14 +29,54 @@ interface SelectComponentProps {
   setOrgan: (organ: string) => void;
 }
 
+interface ResultData {
+  query: {
+    project: string;
+    images: string[];
+    organs: string[];
+    includeRelatedImages: boolean;
+    noReject: boolean;
+  };
+  language: string;
+  preferedReferential: string;
+  bestMatch: string;
+  results: Array<{
+    score: number;
+    species: {
+      scientificNameWithoutAuthor: string;
+      scientificNameAuthorship: string;
+      genus: {
+        scientificNameWithoutAuthor: string;
+        scientificNameAuthorship: string;
+        scientificName: string;
+      };
+      family: {
+        scientificNameWithoutAuthor: string;
+        scientificNameAuthorship: string;
+        scientificName: string;
+      };
+      commonNames: string[];
+      scientificName: string;
+    };
+    gbif: {
+      id: string;
+    };
+    powo: {
+      id: string;
+    };
+  }>;
+  version: string;
+  remainingIdentificationRequests: number;
+}
+
 const PhotoPage = () => {
   const [imageData, setImageData] = useState(null);
-  const [resultData, setResultData] = useState<JSON | null>(null);
+  const [resultData, setResultData] = useState<ResultData | null>(null);
 
   const [submitButtonstatus, setSubmitButtonstatus] = useState<boolean>(false);
   const [organ, setOrgan] = useState("flower");
 
-  const [copied, setCopied] = useState(false);
+  const [, setCopied] = useState(false);
 
   const handleCapture = (data: any) => {
     setImageData(data);
@@ -269,7 +309,7 @@ function submitData(
   setSubmitButtonstatus: any,
   imageData: string,
   organ: string,
-  setResultData: (result: JSON) => void
+  setResultData: (result: ResultData) => void
 ) {
   setSubmitButtonstatus(true);
   uploadPhoto(imageData, organ, setResultData);

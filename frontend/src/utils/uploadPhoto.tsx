@@ -1,10 +1,50 @@
 import base64ToFile from "./base64ToFile";
 import plantnetAPI from "./api.json";
 
+interface ResultData {
+  query: {
+    project: string;
+    images: string[];
+    organs: string[];
+    includeRelatedImages: boolean;
+    noReject: boolean;
+  };
+  language: string;
+  preferedReferential: string;
+  bestMatch: string;
+  results: Array<{
+    score: number;
+    species: {
+      scientificNameWithoutAuthor: string;
+      scientificNameAuthorship: string;
+      genus: {
+        scientificNameWithoutAuthor: string;
+        scientificNameAuthorship: string;
+        scientificName: string;
+      };
+      family: {
+        scientificNameWithoutAuthor: string;
+        scientificNameAuthorship: string;
+        scientificName: string;
+      };
+      commonNames: string[];
+      scientificName: string;
+    };
+    gbif: {
+      id: string;
+    };
+    powo: {
+      id: string;
+    };
+  }>;
+  version: string;
+  remainingIdentificationRequests: number;
+}
+
 const uploadPhoto = (
   imageData: any,
   organ: string,
-  setResultData: (result: JSON) => void
+  setResultData: (result: ResultData) => void
 ) => {
   const file = base64ToFile(imageData, "photo.png");
   // create FormData object
@@ -30,7 +70,7 @@ const uploadPhoto = (
       setResultData(data);
     })
     .catch((error) => {
-      console.error("上传失败:");
+      console.error("上传失败:" + error);
     });
 };
 
