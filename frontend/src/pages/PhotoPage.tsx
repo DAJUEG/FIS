@@ -2,7 +2,7 @@ import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import CameraComponent from "../components/common/CameraComponent";
-import uploadPhoto from "../utils/uploadPhoto";
+import { submitData } from "../utils/uploadPhoto";
 import {
   Box,
   Heading,
@@ -69,7 +69,11 @@ interface ResultData {
   remainingIdentificationRequests: number;
 }
 
-const PhotoPage = () => {
+interface PhotoPageProp {
+  path?: string;
+}
+
+const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
   const [imageData, setImageData] = useState(null);
   const [resultData, setResultData] = useState<ResultData | null>(null);
 
@@ -163,13 +167,18 @@ const PhotoPage = () => {
                       type: "success",
                     });
                   }}
+                  _hover={{
+                    backgroundColor: "green.500",
+                    color: "white",
+                    cursor: "pointer",
+                  }}
                 >
                   Copy
                 </Badge>
               </CopyToClipboard>
               {/* Genus & Family Name */}
               <br />
-              <strong>Genus:</strong>{" "}
+              <strong>Genus:</strong>
               {resultData.results[0].species.genus.scientificName}
               <CopyToClipboard
                 text={resultData.results[0].species.genus.scientificName}
@@ -184,6 +193,11 @@ const PhotoPage = () => {
                       title: `Copy Success!`,
                       type: "success",
                     });
+                  }}
+                  _hover={{
+                    backgroundColor: "green.500",
+                    color: "white",
+                    cursor: "pointer",
                   }}
                 >
                   Copy
@@ -205,6 +219,11 @@ const PhotoPage = () => {
                       title: `Copy Success!`,
                       type: "success",
                     });
+                  }}
+                  _hover={{
+                    backgroundColor: "green.500",
+                    color: "white",
+                    cursor: "pointer",
                   }}
                 >
                   Copy
@@ -232,6 +251,11 @@ const PhotoPage = () => {
                                   title: `Copy Success!`,
                                   type: "success",
                                 });
+                              }}
+                              _hover={{
+                                backgroundColor: "green.500",
+                                color: "white",
+                                cursor: "pointer",
                               }}
                             >
                               Copy
@@ -304,18 +328,5 @@ const SelectConponent: FunctionalComponent<SelectComponentProps> = ({
     </Stack>
   );
 };
-
-function submitData(
-  setSubmitButtonstatus: any,
-  imageData: string,
-  organ: string,
-  setResultData: (result: ResultData) => void
-) {
-  setSubmitButtonstatus(true);
-  uploadPhoto(imageData, organ, setResultData);
-  setTimeout(() => {
-    setSubmitButtonstatus(false);
-  }, 2000);
-}
 
 export default PhotoPage;

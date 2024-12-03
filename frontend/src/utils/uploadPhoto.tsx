@@ -74,4 +74,17 @@ const uploadPhoto = (
     });
 };
 
-export default uploadPhoto;
+function submitData(
+  setSubmitButtonstatus: any,
+  imageData: string,
+  organ: string,
+  setResultData: (result: ResultData) => void
+) {
+  setSubmitButtonstatus(true);
+  uploadPhoto(imageData, organ, setResultData);
+  setTimeout(() => {
+    setSubmitButtonstatus(false);
+  }, 2000);
+}
+
+export { uploadPhoto, submitData };
