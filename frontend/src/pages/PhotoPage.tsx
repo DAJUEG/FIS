@@ -152,16 +152,15 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
               {/* Scientific Name */}
               <br />
               <strong>Scientific Name:</strong>{" "}
-              {resultData.results[0].species.scientificName}
+              {resultData?.results[0]?.species?.scientificName}
               <CopyToClipboard
-                text={resultData.results[0].species.scientificName}
+                text={resultData?.results[0]?.species?.scientificName}
                 onCopy={() => setCopied(true)}
               >
                 <Badge
                   ml={"1rem"}
                   colorPalette="green"
                   onClick={() => {
-                    console.log(123);
                     toaster.create({
                       title: `Copy Success!`,
                       type: "success",
@@ -179,16 +178,15 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
               {/* Genus & Family Name */}
               <br />
               <strong>Genus:</strong>
-              {resultData.results[0].species.genus.scientificName}
+              {resultData?.results[0]?.species?.genus?.scientificName}
               <CopyToClipboard
-                text={resultData.results[0].species.genus.scientificName}
+                text={resultData?.results[0]?.species?.genus?.scientificName}
                 onCopy={() => setCopied(true)}
               >
                 <Badge
                   ml={"1rem"}
                   colorPalette="green"
                   onClick={() => {
-                    console.log(123);
                     toaster.create({
                       title: `Copy Success!`,
                       type: "success",
@@ -205,16 +203,15 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
               </CopyToClipboard>
               <br />
               <strong>Family:</strong>{" "}
-              {resultData.results[0].species.family.scientificName}
+              {resultData?.results[0]?.species?.family?.scientificName}
               <CopyToClipboard
-                text={resultData.results[0].species.family.scientificName}
+                text={resultData?.results[0]?.species?.family?.scientificName}
                 onCopy={() => setCopied(true)}
               >
                 <Badge
                   ml={"1rem"}
                   colorPalette="green"
                   onClick={() => {
-                    console.log(123);
                     toaster.create({
                       title: `Copy Success!`,
                       type: "success",
@@ -233,11 +230,11 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
               <br />
               <strong>Common Names:</strong>{" "}
               <List.Root>
-                {resultData.results[0].species.commonNames.length > 0
-                  ? resultData.results[0].species.commonNames.map(
+                {resultData?.results[0]?.species?.commonNames?.length > 0
+                  ? resultData?.results[0]?.species?.commonNames.map(
                       (name, idx) => (
                         <List.Item key={idx}>
-                          {name}{" "}
+                          {name}
                           <CopyToClipboard
                             text={name}
                             onCopy={() => setCopied(true)}
@@ -246,7 +243,6 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
                               ml={"1rem"}
                               colorPalette="green"
                               onClick={() => {
-                                console.log(123);
                                 toaster.create({
                                   title: `Copy Success!`,
                                   type: "success",
@@ -269,20 +265,20 @@ const PhotoPage: FunctionalComponent<PhotoPageProp> = () => {
               <br />
               <strong>Image details （GBIF:）</strong>{" "}
               <a
-                href={`https://www.gbif.org/species/${resultData.results[0].gbif.id}`}
+                href={`https://www.gbif.org/species/${resultData?.results[0]?.gbif?.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {resultData.results[0].gbif.id}
+                {resultData?.results[0]?.gbif?.id}
               </a>
               <br />
               <strong>Image details （POWO:）</strong>{" "}
               <a
-                href={`http://powo.science.kew.org/taxon/${resultData.results[0].powo.id}`}
+                href={`http://powo.science.kew.org/taxon/${resultData?.results[0]?.powo?.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {resultData.results[0].powo.id}
+                {resultData?.results[0]?.powo?.id}
               </a>
             </Box>
           </Flex>
